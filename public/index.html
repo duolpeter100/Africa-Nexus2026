@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Africa Nexus | Connecting the Continent. Shaping the Narrative.</title>
+    <script>
+        if (/^#(invite_token|recovery_token)=/.test(window.location.hash)) {
+            window.location.replace('/admin/' + window.location.hash);
+        }
+    </script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -126,6 +131,7 @@
                     </button>
 
                     <!-- Submit Article CTA -->
+                    <a href="/admin/" class="text-xs font-semibold text-teal dark:text-teal-light px-2 py-2">Staff login</a>
                     <button onclick="openModal('submit-modal')" class="hidden md:flex items-center gap-2 bg-navy text-white hover:bg-teal text-xs font-semibold py-2 px-3.5 rounded-lg shadow-sm transition-all">
                         <i class="fa-solid fa-pen-nib"></i>
                         <span>Submit Piece</span>
@@ -162,7 +168,7 @@
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow w-full">
         
         <!-- Hero Section -->
-        <section class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12" id="hero-section">
+        <section class="hidden grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12" id="hero-section">
             <!-- Main Featured Lead Story (8 cols) -->
             <div class="lg:col-span-8 group cursor-pointer" onclick="openArticleModal(articles[0].id)">
                 <div class="relative h-[380px] sm:h-[460px] rounded-2xl overflow-hidden shadow-xl">
@@ -171,14 +177,14 @@
                     
                     <div class="absolute top-4 left-4 flex gap-2">
                         <span class="bg-copper text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow">Lead Story</span>
-                        <span class="bg-navy/80 backdrop-blur-md text-white text-xs px-3 py-1 rounded-full"><i class="fa-solid fa-clock mr-1"></i> 6 min read</span>
+                        <span id="hero-readtime" class="bg-navy/80 backdrop-blur-md text-white text-xs px-3 py-1 rounded-full"></span>
                     </div>
 
                     <div class="absolute bottom-0 p-6 sm:p-8 w-full">
                         <div class="flex items-center gap-3 text-teal-light text-xs font-semibold mb-2 uppercase tracking-wider">
-                            <span>Tech & Regional Integration</span>
+                            <span id="hero-category">Tech & Regional Integration</span>
                             <span>•</span>
-                            <span class="text-gray-300">East & West Africa</span>
+                            <span id="hero-region" class="text-gray-300">East & West Africa</span>
                         </div>
                         <h1 id="hero-title" class="text-2xl sm:text-4xl font-black font-serif text-white leading-tight mb-3 group-hover:text-copper-light transition-colors">
                             Pan-African Tech Alliances Fast-Track Cross-Border Digital Currencies & Connectivity
@@ -188,10 +194,10 @@
                         </p>
                         <div class="flex items-center justify-between text-xs text-gray-400 border-t border-white/10 pt-4">
                             <div class="flex items-center gap-3">
-                                <div class="w-8 h-8 rounded-full bg-teal text-white flex items-center justify-center font-bold text-xs">AM</div>
+                                <div id="hero-initials" class="w-8 h-8 rounded-full bg-teal text-white flex items-center justify-center font-bold text-xs">AM</div>
                                 <div>
-                                    <p class="text-white font-medium">Amina Mohamed</p>
-                                    <p class="text-[11px]">Senior Tech Editor in Nairobi</p>
+                                    <p id="hero-author" class="text-white font-medium">Amina Mohamed</p>
+                                    <p id="hero-date" class="text-[11px]"></p>
                                 </div>
                             </div>
                             <div class="flex items-center gap-4">
@@ -213,7 +219,7 @@
                     <div class="flex items-center justify-between pb-4 mb-4 border-b border-gray-100 dark:border-slate-700">
                         <h2 class="font-bold text-lg text-navy dark:text-white flex items-center gap-2">
                             <i class="fa-solid fa-fire text-copper"></i>
-                            Top Trending
+                            Latest Stories
                         </h2>
                         <span class="text-xs text-teal font-medium uppercase tracking-wider">Live Updates</span>
                     </div>
@@ -434,6 +440,7 @@
                         <li><a href="#" onclick="openModal('submit-modal')" class="hover:text-white">Press Release Submissions</a></li>
                         <li><a href="#" class="hover:text-white">Careers & Fellowships</a></li>
                         <li><a href="#" class="hover:text-white">Privacy Policy</a></li>
+                        <li><a href="/admin/" class="hover:text-white">Admin & Owner Login</a></li>
                     </ul>
                 </div>
             </div>
@@ -516,120 +523,7 @@
 
     <script>
         // Article Database
-        const articles = [
-            {
-                id: 1,
-                title: "Pan-African Tech Alliances Fast-Track Cross-Border Digital Currencies & Connectivity",
-                category: "Tech & Innovation",
-                region: "East",
-                author: "Amina Mohamed",
-                date: "Oct 5, 2026",
-                readTime: "6 min read",
-                views: "18.4K",
-                image: "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&w=800&q=80",
-                excerpt: "Key central banks and fintech hubs unite to construct unified payment networks, paving the way for frictionless trade under AfCFTA.",
-                content: `
-                    <p class="font-serif text-lg leading-relaxed text-gray-800 dark:text-gray-200 mb-6">
-                        In an unprecedented leap forward for regional integration, financial authorities across Nairobi, Lagos, and Accra have formalized a joint protocol establishing real-time digital settlement networks. The agreement promises to lower cross-border transaction fees by over 60%, drastically simplifying commerce for small enterprises across the continent.
-                    </p>
-                    <h3 class="text-xl font-bold font-serif text-navy dark:text-white mt-6 mb-3">Unlocking the Power of AfCFTA</h3>
-                    <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-                        For decades, intra-African trade was hampered by costly multi-currency conversions routed through intermediary banking hubs in Europe or North America. By deploying interoperable digital payment bridges, African entrepreneurs can now settle trades instantaneously in local currencies.
-                    </p>
-                    <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-                        "We are no longer just talking about economic integration on paper," stated Dr. Kojo Vance during the summit. "We are engineering the digital rails that allow a merchant in Dakar to receive payments seamlessly from a buyer in Kigali within seconds."
-                    </p>
-                `
-            },
-            {
-                id: 2,
-                title: "North Africa's Solar Highway: How Giant Farms Are Powering Trans-Mediterranean Grids",
-                category: "Climate",
-                region: "North",
-                author: "Youssef El-Mansouri",
-                date: "Oct 4, 2026",
-                readTime: "5 min read",
-                views: "14.2K",
-                image: "https://images.unsplash.com/photo-1509391365360-2e959784a276?auto=format&fit=crop&w=800&q=80",
-                excerpt: "Solar infrastructure expansions in Egypt and Morocco unlock clean export potential while supplying domestic industrial growth.",
-                content: `
-                    <p class="font-serif text-lg leading-relaxed text-gray-800 dark:text-gray-200 mb-6">
-                        stretching across vast desert landscapes, North Africa's mega solar installations are redefining global energy geography. With new submarine high-voltage cables coming online, renewable energy produced in the Sahara is directly powering green industrial zones and European cities.
-                    </p>
-                    <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-                        Local manufacturing of PV modules and green hydrogen electrolyzers is rapidly growing, generating tens of thousands of skilled engineering jobs across the region.
-                    </p>
-                `
-            },
-            {
-                id: 3,
-                title: "Democratic Reforms and Youth Voter Engagement Surge in West African Elections",
-                category: "Politics",
-                region: "West",
-                author: "Kwame Lawson",
-                date: "Oct 3, 2026",
-                readTime: "7 min read",
-                views: "22.1K",
-                image: "https://images.unsplash.com/photo-1540910419892-4a36d2c3266c?auto=format&fit=crop&w=800&q=80",
-                excerpt: "Civic tech tools and grassroots mobilizations drive record youth registration numbers in upcoming parliamentary votes.",
-                content: `
-                    <p class="font-serif text-lg leading-relaxed text-gray-800 dark:text-gray-200 mb-6">
-                        A new generation of voters across West Africa is leveraging open-source tracking tools to demand transparency, accountability, and candidate performance benchmarks.
-                    </p>
-                `
-            },
-            {
-                id: 4,
-                title: "Afrobeats and Cinema Driving a $12B Creative Economy Boom",
-                category: "Culture",
-                region: "West",
-                author: "Chioma Okereke",
-                date: "Oct 2, 2026",
-                readTime: "4 min read",
-                views: "19.8K",
-                image: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=800&q=80",
-                excerpt: "Global streaming distribution deals and creative incubators attract record venture capital into African entertainment.",
-                content: `
-                    <p class="font-serif text-lg leading-relaxed text-gray-800 dark:text-gray-200 mb-6">
-                        From film festivals in Lagos to recording studios in Johannesburg, African storytellers are building self-sustaining global brands that command premium valuations.
-                    </p>
-                `
-            },
-            {
-                id: 5,
-                title: "Southern Africa Lithium Refinery Hub Boosts Local Value Addition",
-                category: "Business",
-                region: "Southern",
-                author: "Thabo Mbeki Jr.",
-                date: "Oct 1, 2026",
-                readTime: "6 min read",
-                views: "11.5K",
-                image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=800&q=80",
-                excerpt: "New processing facilities ensure raw critical minerals are converted into battery-grade materials locally before export.",
-                content: `
-                    <p class="font-serif text-lg leading-relaxed text-gray-800 dark:text-gray-200 mb-6">
-                        By shifting from raw ore exports to refined lithium production, regional economies are securing significantly higher profit margins and industrial capabilities.
-                    </p>
-                `
-            },
-            {
-                id: 6,
-                title: "Central Africa Basin Conservation: Balancing Forest Protection and Economic Growth",
-                category: "Climate",
-                region: "Central",
-                author: "Marie-Claire Ndombe",
-                date: "Sep 29, 2026",
-                readTime: "8 min read",
-                views: "9.7K",
-                image: "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&w=800&q=80",
-                excerpt: "High-integrity carbon credit frameworks reward rainforest stewardship while funding sustainable community development.",
-                content: `
-                    <p class="font-serif text-lg leading-relaxed text-gray-800 dark:text-gray-200 mb-6">
-                        The Congo Basin rainforest remains the earth's vital green heart. Innovative sovereign climate bonds are now directly compensating local stewards.
-                    </p>
-                `
-            }
-        ];
+        const articles = [];
 
         // Podcast Episodes Database
         const podcasts = [
@@ -668,11 +562,53 @@
 
         // On Document Load Initialization
         window.onload = function() {
-            renderTrending();
-            renderArticles();
+            loadPublishedArticles();
             updateTime();
             setInterval(updateTime, 60000);
         };
+
+        function escapeHtml(value) {
+            return String(value ?? '').replace(/[&<>"']/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[character]));
+        }
+
+        function formatArticleBody(content) {
+            return content.split(/\n\s*\n/).map(paragraph => `<p class="font-serif text-base leading-relaxed mb-6">${escapeHtml(paragraph).replace(/\n/g, '<br>')}</p>`).join('');
+        }
+
+        async function loadPublishedArticles() {
+            const container = document.getElementById('articles-container');
+            container.innerHTML = '<p class="col-span-full text-center text-gray-500 py-8" role="status">Loading the latest from Africa Nexus…</p>';
+            try {
+                const response = await fetch('/api/published-articles', { cache: 'no-store' });
+                if (!response.ok) throw new Error('Unable to load stories.');
+                const published = await response.json();
+                articles.splice(0, articles.length, ...published.map(story => ({
+                    ...story,
+                    image: story.image || '/newsroom-cover.svg',
+                    date: new Date(story.publishedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+                    readTime: `${Math.max(1, Math.ceil(story.content.split(/\s+/).length / 220))} min read`,
+                })));
+                const lead = articles[0];
+                document.getElementById('hero-section').classList.toggle('hidden', !lead);
+                if (lead) {
+                    document.getElementById('hero-img').src = lead.image;
+                    document.getElementById('hero-img').alt = lead.title;
+                    document.getElementById('hero-title').textContent = lead.title;
+                    document.getElementById('hero-excerpt').textContent = lead.excerpt;
+                    document.getElementById('hero-category').textContent = lead.category;
+                    document.getElementById('hero-region').textContent = `${lead.region} Africa`;
+                    document.getElementById('hero-readtime').textContent = lead.readTime;
+                    document.getElementById('hero-author').textContent = lead.author;
+                    document.getElementById('hero-date').textContent = lead.date;
+                    document.getElementById('hero-initials').textContent = lead.author.split(/\s+/).slice(0, 2).map(part => part[0]).join('');
+                }
+                renderTrending();
+                renderArticles();
+                if (!articles.length) container.innerHTML = '<p class="col-span-full text-center text-gray-500 py-8">New stories are on their way. Check back soon.</p>';
+            } catch {
+                container.innerHTML = '<div class="col-span-full text-center text-gray-500 py-8"><p>Stories are temporarily unavailable.</p><button type="button" onclick="loadPublishedArticles()" class="mt-3 text-teal font-semibold">Try again</button></div>';
+            }
+        }
 
         // Real-Time Clock
         function updateTime() {
@@ -687,16 +623,14 @@
             const container = document.getElementById('trending-list');
             if (!container) return;
 
-            container.innerHTML = articles.map((art, index) => `
+            container.innerHTML = articles.slice(0, 6).map((art, index) => `
                 <div onclick="openArticleModal(${art.id})" class="flex items-start gap-3 p-2 rounded-xl hover:bg-gray-50 dark:hover:bg-slate-700/50 cursor-pointer transition-colors group">
                     <span class="text-xl font-bold font-serif text-copper/60 group-hover:text-copper transition-colors w-5 shrink-0">0${index + 1}</span>
                     <div class="flex-grow min-w-0">
-                        <span class="text-[10px] uppercase tracking-wider font-bold text-teal dark:text-teal-light">${art.category}</span>
-                        <h3 class="text-xs font-bold text-navy dark:text-white line-clamp-2 leading-snug group-hover:text-copper transition-colors mt-0.5">${art.title}</h3>
+                        <span class="text-[10px] uppercase tracking-wider font-bold text-teal dark:text-teal-light">${escapeHtml(art.category)}</span>
+                        <h3 class="text-xs font-bold text-navy dark:text-white line-clamp-2 leading-snug group-hover:text-copper transition-colors mt-0.5">${escapeHtml(art.title)}</h3>
                         <p class="text-[11px] text-gray-400 mt-1 flex items-center gap-2">
-                            <span><i class="fa-regular fa-eye mr-1"></i>${art.views}</span>
-                            <span>•</span>
-                            <span>${art.readTime}</span>
+                            <span>${escapeHtml(art.readTime)}</span>
                         </p>
                     </div>
                 </div>
@@ -731,22 +665,22 @@
                 container.innerHTML = filtered.map(art => `
                     <article onclick="openArticleModal(${art.id})" class="bg-white dark:bg-slate-800 rounded-2xl overflow-hidden border border-gray-100 dark:border-slate-800 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group cursor-pointer">
                         <div class="relative h-48 overflow-hidden">
-                            <img src="${art.image}" alt="${art.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                            <span class="absolute top-3 left-3 bg-navy/90 backdrop-blur-md text-white text-[10px] font-bold px-2.5 py-1 rounded-md uppercase tracking-wider">${art.category}</span>
+                            <img src="${escapeHtml(art.image)}" alt="${escapeHtml(art.title)}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <span class="absolute top-3 left-3 bg-navy/90 backdrop-blur-md text-white text-[10px] font-bold px-2.5 py-1 rounded-md uppercase tracking-wider">${escapeHtml(art.category)}</span>
                             <button onclick="event.stopPropagation(); toggleBookmark(${art.id})" class="absolute top-3 right-3 w-8 h-8 rounded-full bg-slate-900/60 backdrop-blur text-white flex items-center justify-center hover:bg-copper transition-colors">
                                 <i class="${bookmarks.has(art.id) ? 'fa-solid text-copper' : 'fa-regular'} fa-bookmark text-xs"></i>
                             </button>
                         </div>
                         <div class="p-5 flex flex-col flex-grow">
                             <div class="flex items-center gap-2 text-xs text-gray-400 mb-2">
-                                <span>${art.date}</span>
+                                <span>${escapeHtml(art.date)}</span>
                                 <span>•</span>
-                                <span>${art.readTime}</span>
+                                <span>${escapeHtml(art.readTime)}</span>
                             </div>
-                            <h3 class="font-serif font-bold text-base text-navy dark:text-white line-clamp-2 mb-2 group-hover:text-copper transition-colors">${art.title}</h3>
-                            <p class="text-xs text-gray-600 dark:text-gray-300 line-clamp-3 mb-4 flex-grow leading-relaxed">${art.excerpt}</p>
+                            <h3 class="font-serif font-bold text-base text-navy dark:text-white line-clamp-2 mb-2 group-hover:text-copper transition-colors">${escapeHtml(art.title)}</h3>
+                            <p class="text-xs text-gray-600 dark:text-gray-300 line-clamp-3 mb-4 flex-grow leading-relaxed">${escapeHtml(art.excerpt)}</p>
                             <div class="flex items-center justify-between border-t border-gray-100 dark:border-slate-700/60 pt-3 text-xs text-gray-500">
-                                <span class="font-medium text-teal dark:text-teal-light">${art.author}</span>
+                                <span class="font-medium text-teal dark:text-teal-light">${escapeHtml(art.author)}</span>
                                 <span class="text-copper font-semibold group-hover:translate-x-1 transition-transform inline-flex items-center gap-1">Read <i class="fa-solid fa-arrow-right text-[10px]"></i></span>
                             </div>
                         </div>
@@ -757,18 +691,18 @@
                 container.className = "flex flex-col gap-4";
                 container.innerHTML = filtered.map(art => `
                     <article onclick="openArticleModal(${art.id})" class="bg-white dark:bg-slate-800 rounded-xl p-4 border border-gray-100 dark:border-slate-800 shadow-sm hover:shadow-md transition-all flex flex-col sm:flex-row gap-5 items-center group cursor-pointer">
-                        <img src="${art.image}" alt="${art.title}" class="w-full sm:w-48 h-32 rounded-lg object-cover shrink-0">
+                        <img src="${escapeHtml(art.image)}" alt="${escapeHtml(art.title)}" class="w-full sm:w-48 h-32 rounded-lg object-cover shrink-0">
                         <div class="flex-grow">
                             <div class="flex items-center gap-2 text-xs text-teal font-bold uppercase tracking-wider mb-1">
-                                <span>${art.category}</span>
+                                <span>${escapeHtml(art.category)}</span>
                                 <span class="text-gray-300">•</span>
-                                <span class="text-gray-400 font-normal">${art.date}</span>
+                                <span class="text-gray-400 font-normal">${escapeHtml(art.date)}</span>
                             </div>
-                            <h3 class="font-serif font-bold text-lg text-navy dark:text-white group-hover:text-copper transition-colors mb-2">${art.title}</h3>
-                            <p class="text-xs text-gray-600 dark:text-gray-300 line-clamp-2 leading-relaxed mb-3">${art.excerpt}</p>
+                            <h3 class="font-serif font-bold text-lg text-navy dark:text-white group-hover:text-copper transition-colors mb-2">${escapeHtml(art.title)}</h3>
+                            <p class="text-xs text-gray-600 dark:text-gray-300 line-clamp-2 leading-relaxed mb-3">${escapeHtml(art.excerpt)}</p>
                             <div class="flex items-center gap-4 text-xs text-gray-500">
-                                <span>By <strong>${art.author}</strong></span>
-                                <span>${art.readTime}</span>
+                                <span>By <strong>${escapeHtml(art.author)}</strong></span>
+                                <span>${escapeHtml(art.readTime)}</span>
                             </div>
                         </div>
                     </article>
@@ -847,14 +781,14 @@
             );
 
             if (filtered.length === 0) {
-                container.innerHTML = `<p class="col-span-full text-center text-gray-500 py-8">No results found for "${query}"</p>`;
+                container.innerHTML = `<p class="col-span-full text-center text-gray-500 py-8">No results found for "${escapeHtml(query)}"</p>`;
             } else {
                 // Temporarily override rendering with search matches
                 container.innerHTML = filtered.map(art => `
                     <article onclick="openArticleModal(${art.id})" class="bg-white dark:bg-slate-800 rounded-2xl overflow-hidden border border-gray-100 dark:border-slate-800 shadow-sm p-5 cursor-pointer">
-                        <span class="text-[10px] font-bold text-copper uppercase">${art.category}</span>
-                        <h3 class="font-serif font-bold text-base mt-1 text-navy dark:text-white">${art.title}</h3>
-                        <p class="text-xs text-gray-500 mt-2 line-clamp-2">${art.excerpt}</p>
+                        <span class="text-[10px] font-bold text-copper uppercase">${escapeHtml(art.category)}</span>
+                        <h3 class="font-serif font-bold text-base mt-1 text-navy dark:text-white">${escapeHtml(art.title)}</h3>
+                        <p class="text-xs text-gray-500 mt-2 line-clamp-2">${escapeHtml(art.excerpt)}</p>
                     </article>
                 `).join('');
             }
@@ -862,36 +796,37 @@
 
         // Article Modal Popup
         function openArticleModal(articleId) {
-            const art = articles.find(a => a.id === articleId) || articles[0];
+            const art = articles.find(a => a.id === articleId);
+            if (!art) return;
             const container = document.getElementById('modal-content-container');
 
             container.innerHTML = `
                 <div class="mb-4 flex items-center justify-between text-xs text-gray-400">
-                    <span class="bg-teal/10 text-teal dark:text-teal-light font-bold px-3 py-1 rounded-full uppercase">${art.category}</span>
-                    <span>Published ${art.date}</span>
+                    <span class="bg-teal/10 text-teal dark:text-teal-light font-bold px-3 py-1 rounded-full uppercase">${escapeHtml(art.category)}</span>
+                    <span>Published ${escapeHtml(art.date)}</span>
                 </div>
 
-                <h1 class="text-2xl sm:text-3xl font-bold font-serif text-navy dark:text-white mb-4 leading-tight">${art.title}</h1>
+                <h1 class="text-2xl sm:text-3xl font-bold font-serif text-navy dark:text-white mb-4 leading-tight">${escapeHtml(art.title)}</h1>
 
                 <div class="flex items-center justify-between pb-6 mb-6 border-b border-gray-200 dark:border-slate-800 text-xs">
                     <div class="flex items-center gap-3">
                         <div class="w-10 h-10 rounded-full bg-copper text-white font-bold flex items-center justify-center text-sm">
-                            ${art.author.charAt(0)}
+                            ${escapeHtml(art.author.charAt(0))}
                         </div>
                         <div>
-                            <p class="font-bold text-navy dark:text-white text-sm">${art.author}</p>
-                            <p class="text-gray-400">Bureau Staff • ${art.readTime}</p>
+                            <p class="font-bold text-navy dark:text-white text-sm">${escapeHtml(art.author)}</p>
+                            <p class="text-gray-400">Bureau Staff • ${escapeHtml(art.readTime)}</p>
                         </div>
                     </div>
                     <div class="flex items-center gap-3">
-                        <button onclick="shareArticle('${art.title}')" class="p-2 rounded-full bg-gray-100 dark:bg-slate-800 hover:text-copper"><i class="fa-solid fa-share-nodes"></i></button>
+                        <button onclick="shareArticle(articles.find(article => article.id === ${art.id}).title)" class="p-2 rounded-full bg-gray-100 dark:bg-slate-800 hover:text-copper"><i class="fa-solid fa-share-nodes"></i></button>
                     </div>
                 </div>
 
-                <img src="${art.image}" alt="${art.title}" class="w-full h-64 sm:h-80 object-cover rounded-xl mb-6 shadow-md">
+                <img src="${escapeHtml(art.image)}" alt="${escapeHtml(art.title)}" class="w-full h-64 sm:h-80 object-cover rounded-xl mb-6 shadow-md">
 
                 <div class="prose dark:prose-invert max-w-none">
-                    ${art.content}
+                    ${formatArticleBody(art.content)}
                 </div>
             `;
 

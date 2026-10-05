@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Newsroom · Africa Nexus</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Libre+Caslon+Display&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/admin/dashboard.css">
+  <script src="/admin/dashboard.js" defer></script>
+</head>
+<body>
+  <div id="boot" class="boot" role="status">Connecting to the newsroom<span class="loading-line"></span></div>
+  <main id="login-view" class="login-layout" hidden>
+    <section class="login-story">
+      <a class="brand" href="/"><span class="brand-symbol" aria-hidden="true">✳</span><span>Africa <strong>Nexus</strong><small>THE NEWSROOM</small></span></a>
+      <div class="story-copy"><p class="eyebrow">ONE CONTINENT. MANY VOICES.</p><h1>The next chapter<br>starts with you.</h1><p>A dedicated space for the people shaping Africa’s narrative. Write with purpose. Publish with confidence.</p></div>
+      <div class="orbit-art" aria-hidden="true"><span class="orbit-center">AN</span><span class="orbit-label label-one">LAGOS</span><span class="orbit-label label-two">NAIROBI</span><span class="orbit-label label-three">ACCRA</span><span class="orbit-label label-four">CAIRO</span><span class="orbit-label label-five">JOHANNESBURG</span></div>
+      <div class="story-bottom"><span>Connecting the continent.</span><span>Shaping the narrative.</span></div>
+    </section>
+    <section class="login-panel">
+      <a class="back-link" href="/">← Back to Africa Nexus</a>
+      <div class="login-card">
+        <span class="access-label"><span></span> SECURE STAFF ACCESS</span>
+        <h2>Welcome back.</h2><p class="muted">Sign in to your Africa Nexus newsroom.</p>
+        <div class="role-explainer"><strong>Admin & owner access</strong><span>Your account determines your permissions.</span></div>
+        <form id="login-form">
+          <label for="login-username">Username <span class="optional">or account email</span></label>
+          <input id="login-username" name="username" autocomplete="username" maxlength="254" required placeholder="Your username">
+          <label for="login-password">Password</label>
+          <div class="password-field"><input id="login-password" name="password" type="password" autocomplete="current-password" maxlength="128" required placeholder="Enter your password"><button id="show-password" type="button" aria-label="Show password">Show</button></div>
+          <p id="login-error" class="form-error" role="alert" hidden></p>
+          <button class="button primary login-submit" type="submit">Enter the newsroom <span aria-hidden="true">→</span></button>
+        </form>
+        <button id="forgot-password" type="button" class="text-button recovery-button">Forgot your password?</button>
+        <p class="access-help">Need an account? Contact your newsroom owner.<br>Staff access is never granted through public signup.</p>
+      </div>
+      <p class="login-footnote">AFRICA NEXUS MEDIA GROUP · STAFF PORTAL</p>
+    </section>
+  </main>
+
+  <div id="dashboard-view" class="dashboard-layout" hidden>
+    <aside class="sidebar">
+      <a class="brand" href="/"><span class="brand-symbol" aria-hidden="true">✳</span><span>Africa <strong>Nexus</strong><small>THE NEWSROOM</small></span></a>
+      <p class="sidebar-caption">WORKSPACE</p>
+      <nav aria-label="Newsroom navigation">
+        <button data-view="overview" class="nav-item active"><span aria-hidden="true">◫</span>Overview</button>
+        <button data-view="articles" class="nav-item"><span aria-hidden="true">▤</span>All stories<span id="nav-count" class="nav-count">0</span></button>
+        <button data-view="team" id="team-nav" class="nav-item" hidden><span aria-hidden="true">♧</span>Team & access</button>
+        <button data-view="account" class="nav-item"><span aria-hidden="true">◎</span>My account</button>
+      </nav>
+      <div class="sidebar-note"><span class="eyebrow">EDITORIAL DESK</span><p>Good stories bring<br>us closer together.</p><a href="/" target="_blank" rel="noopener">View the live site ↗</a></div>
+      <div class="sidebar-user"><span id="avatar" class="avatar">AN</span><div><strong id="sidebar-name"></strong><small id="sidebar-role"></small></div><button id="logout" aria-label="Sign out" title="Sign out">↪</button></div>
+    </aside>
+    <div class="workspace">
+      <header class="workspace-header"><span>Africa Nexus <span class="breadcrumb-slash">/</span> <strong id="breadcrumb">Overview</strong></span><span id="role-badge" class="role-badge"></span></header>
+      <main class="workspace-main">
+        <div id="workspace-error" class="notice error-notice" role="alert" hidden><span id="workspace-error-text"></span><button id="retry" type="button" class="text-button">Try again</button></div>
+        <section id="overview-section" class="workspace-section">
+          <div class="page-heading"><div><p class="eyebrow" id="today"></p><h1>Your newsroom, at a glance.</h1><p class="muted" id="greeting">Every story starts here.</p></div><button class="button primary" data-new-story>+ New story</button></div>
+          <div class="stats-grid"><article class="stat-card total-stat"><span>STORIES IN YOUR NEWSROOM</span><strong id="total-count">—</strong><small>A growing record of the continent.</small></article><article class="stat-card"><span><i class="status-dot published-dot"></i>PUBLISHED</span><strong id="published-count">—</strong><small>Live for your readers</small></article><article class="stat-card"><span><i class="status-dot draft-dot"></i>IN DRAFT</span><strong id="draft-count">—</strong><small>Ideas taking shape</small></article></div>
+          <div class="desk-banner"><div><p class="eyebrow">FROM THE EDITORIAL DESK</p><h2>Make space for the next important story.</h2><p>From first draft to final headline, your tools are right here.</p></div><button class="button outline-light" data-new-story>Start writing →</button></div>
+          <div class="section-heading"><div><h2>Recently updated</h2><p class="muted">The latest from your editorial workflow.</p></div><button class="text-button" data-view="articles">View all stories →</button></div>
+          <div id="recent-stories" class="story-list"></div>
+        </section>
+        <section id="articles-section" class="workspace-section" hidden>
+          <div class="page-heading"><div><p class="eyebrow">EDITORIAL WORKFLOW</p><h1>All stories.</h1><p class="muted">Draft, edit, and publish your newsroom’s work.</p></div><button class="button primary" data-new-story>+ New story</button></div>
+          <div class="toolbar"><div class="filter-tabs" role="group" aria-label="Filter by status"><button class="selected" data-filter="all">All stories</button><button data-filter="published">Published</button><button data-filter="draft">Drafts</button></div><input id="story-search" type="search" placeholder="Search headlines or authors…" aria-label="Search stories"></div>
+          <div id="all-stories" class="story-list"></div><p class="table-note">The workspace displays up to 500 recently updated stories.</p>
+        </section>
+        <section id="team-section" class="workspace-section" hidden>
+          <div class="page-heading"><div><p class="eyebrow">OWNER CONTROLS</p><h1>A newsroom is a team.</h1><p class="muted">Create staff accounts and control who can publish.</p></div><button id="add-member" class="button primary">+ Add team member</button></div>
+          <div class="permissions-guide"><div><span class="role-badge">Admin</span><p>Creates, edits, publishes, and deletes newsroom stories.</p></div><div><span class="role-badge owner-badge">Owner</span><p>All admin tools, plus account creation and team access controls.</p></div></div>
+          <p class="muted">Revoking newsroom access takes effect on the next API request. Owner accounts are protected from removal here.</p>
+          <div id="team-list" class="team-list"></div><div class="pagination"><button id="team-prev" class="button secondary">← Previous</button><span id="team-page"></span><button id="team-next" class="button secondary">Next →</button></div>
+          <p class="table-note">Existing staff can set a username in My account after signing in with their email.</p>
+        </section>
+        <section id="account-section" class="workspace-section" hidden>
+          <div class="page-heading"><div><p class="eyebrow">YOUR PROFILE</p><h1>A name behind the story.</h1><p class="muted">Set the username you use to sign in.</p></div></div>
+          <form id="profile-form" class="account-card"><label for="profile-name">Display name</label><input id="profile-name" name="name" required maxlength="100" autocomplete="name"><label for="profile-username">Username</label><input id="profile-username" name="username" required minlength="3" maxlength="32" pattern="[a-zA-Z0-9][a-zA-Z0-9._-]*" autocomplete="username"><p class="field-help">3–32 characters. Letters, numbers, dots, underscores, and hyphens. Usernames are not case-sensitive.</p><label for="profile-email">Account email</label><input id="profile-email" type="email" disabled><p class="field-help">Email is used for account recovery. Passwords are securely managed by Netlify Identity.</p><p id="profile-error" class="form-error" role="alert" hidden></p><button class="button primary" type="submit">Save profile</button></form>
+        </section>
+      </main>
+      <footer class="workspace-footer"><span>AFRICA NEXUS · THE NEWSROOM</span><span>Connecting the continent. Shaping the narrative.</span></footer>
+    </div>
+  </div>
+
+  <dialog id="editor-dialog" class="editor-dialog" aria-labelledby="editor-title">
+    <form id="editor-form"><header class="dialog-header"><div><p class="eyebrow">EDITORIAL DESK</p><h2 id="editor-title">A new story.</h2></div><button type="button" class="close-button" data-close aria-label="Close editor">×</button></header><div class="dialog-body"><label for="story-title">Headline</label><input id="story-title" name="title" maxlength="200" required placeholder="A headline worth reading"><div class="form-grid"><div><label for="story-author">Author</label><input id="story-author" name="author" maxlength="100" required></div><div><label for="story-status">Publication status</label><select id="story-status" name="status"><option value="draft">Draft — not visible to readers</option><option value="published">Published — live on the site</option></select></div><div><label for="story-category">Category</label><select id="story-category" name="category"><option>Politics</option><option>Business</option><option>Tech & Innovation</option><option>Climate</option><option>Culture</option></select></div><div><label for="story-region">Region</label><select id="story-region" name="region"><option value="West">West Africa</option><option value="East">East Africa</option><option value="Southern">Southern Africa</option><option value="North">North Africa</option><option value="Central">Central Africa</option></select></div></div><label for="story-excerpt">Summary</label><textarea id="story-excerpt" name="excerpt" rows="3" maxlength="600" required placeholder="Give readers a reason to dive in."></textarea><label for="story-image">Cover image URL <span class="optional">optional · HTTPS</span></label><input id="story-image" name="image" type="url" maxlength="2000" placeholder="https://…"><label for="story-content">Article body</label><textarea id="story-content" name="content" rows="12" maxlength="80000" required placeholder="Tell the story. Use a blank line to start a new paragraph."></textarea><p class="field-help">Plain text keeps your reporting readable and secure. Blank lines become paragraphs.</p><p id="editor-error" class="form-error" role="alert" hidden></p></div><footer class="dialog-footer"><button type="button" class="button secondary" data-close>Cancel</button><button type="submit" class="button primary">Save story</button></footer></form>
+  </dialog>
+  <dialog id="member-dialog"><form id="member-form"><header class="dialog-header"><div><p class="eyebrow">OWNER CONTROLS</p><h2>Add to the newsroom.</h2></div><button type="button" class="close-button" data-close aria-label="Close account form">×</button></header><div class="dialog-body"><label for="member-name">Display name</label><input id="member-name" name="name" required maxlength="100"><label for="member-username">Username</label><input id="member-username" name="username" required minlength="3" maxlength="32" pattern="[a-zA-Z0-9][a-zA-Z0-9._-]*" autocomplete="off"><label for="member-email">Account email</label><input id="member-email" name="email" type="email" required maxlength="254" autocomplete="off"><label for="member-password">Initial password</label><input id="member-password" name="password" type="password" required minlength="12" maxlength="128" autocomplete="new-password"><p class="field-help">At least 12 characters. Share credentials privately with the team member, never in an article.</p><label for="member-role">Role</label><select id="member-role" name="role"><option value="admin">Admin — newsroom content</option><option value="owner">Owner — full content and team access</option></select><p class="field-help">New accounts can sign in immediately. Grant owner access only to trusted people.</p><p id="member-error" class="form-error" role="alert" hidden></p></div><footer class="dialog-footer"><button type="button" class="button secondary" data-close>Cancel</button><button class="button primary" type="submit">Create account</button></footer></form></dialog>
+  <dialog id="confirm-dialog"><div class="dialog-body"><p class="eyebrow">PLEASE CONFIRM</p><h2 id="confirm-title"></h2><p id="confirm-copy" class="muted"></p><p id="confirm-error" class="form-error" role="alert" hidden></p></div><div class="dialog-footer"><button class="button secondary" type="button" data-close>Cancel</button><button id="confirm-action" class="button danger" type="button">Confirm</button></div></dialog>
+  <dialog id="recovery-dialog"><form id="recovery-form"><header class="dialog-header"><h2>Recover your account.</h2><button type="button" class="close-button" data-close aria-label="Close recovery form">×</button></header><div class="dialog-body"><p class="muted">Enter your username or account email. If the account exists, you’ll receive a password reset link.</p><label for="recovery-username">Username or email</label><input id="recovery-username" name="username" required maxlength="254" autocomplete="username"><p id="recovery-error" class="form-error" role="alert" hidden></p><p id="recovery-success" class="notice" hidden>If the account exists, a recovery email is on its way. Check your inbox and spam folder.</p></div><footer class="dialog-footer"><button class="button primary" type="submit">Send recovery email</button></footer></form></dialog>
+  <dialog id="password-dialog"><form id="password-form"><header class="dialog-header"><h2 id="password-title">Set your password.</h2></header><div class="dialog-body"><p class="muted">Choose a password with at least 12 characters for your staff account.</p><label for="new-password">New password</label><input id="new-password" name="password" type="password" minlength="12" maxlength="128" required autocomplete="new-password"><label for="confirm-password">Confirm password</label><input id="confirm-password" type="password" minlength="12" maxlength="128" required autocomplete="new-password"><p id="password-error" class="form-error" role="alert" hidden></p></div><footer class="dialog-footer"><button type="button" class="button secondary" data-close>Cancel</button><button type="submit" class="button primary">Save password</button></footer></form></dialog>
+  <div id="toast" class="toast" role="status" hidden></div>
+</body>
+</html>
