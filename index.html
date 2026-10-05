@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Africa Nexus | Connecting the Continent. Shaping the Narrative.</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        navy: {
+                            DEFAULT: '#0d2b45',
+                            dark: '#081a2b',
+                            light: '#163f63',
+                        },
+                        copper: {
+                            DEFAULT: '#d97724',
+                            hover: '#b86118',
+                            light: '#f9e2cd',
+                        },
+                        teal: {
+                            DEFAULT: '#1a6b73',
+                            dark: '#114a50',
+                            light: '#25939e',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Merriweather', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.05);
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #d97724;
+            border-radius: 4px;
+        }
+        @keyframes pulse-slow {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+        .animate-pulse-slow {
+            animation: pulse-slow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 dark:bg-slate-900 text-gray-900 dark:text-gray-100 font-sans transition-colors duration-300 min-h-screen flex flex-col">
+
+    <!-- Top Breaking News Bar -->
+    <div class="bg-navy-dark text-white text-xs py-2 px-4 flex items-center border-b border-navy-light/30">
+        <div class="flex items-center gap-2 bg-copper font-bold px-2 py-0.5 rounded text-white tracking-wider uppercase text-[10px] shrink-0">
+            <span class="w-2 h-2 rounded-full bg-white animate-pulse"></span>
+            Breaking
+        </div>
+        <div class="overflow-hidden whitespace-nowrap ml-3 relative w-full">
+            <div id="ticker-content" class="inline-block transition-transform duration-500">
+                Lagos Tech Summit unveils $500M Pan-African Innovation Fund &nbsp; • &nbsp; AU Summit advances AfCFTA digital trade protocols in Addis Ababa &nbsp; • &nbsp; Renewable power milestone reached in Kenya Rift Valley project
+            </div>
+        </div>
+        <div class="text-gray-400 text-[11px] hidden md:block shrink-0 ml-4 font-mono">
+            <span id="current-time">12:00 GMT</span>
+        </div>
+    </div>
+
+    <!-- Main Navigation Header -->
+    <header class="sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-gray-200 dark:border-slate-800 transition-colors">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                
+                <!-- Logo -->
+                <a href="#" onclick="filterCategory('All')" class="flex items-center gap-3 group">
+                    <div class="relative w-11 h-11 rounded-full bg-gradient-to-br from-navy via-teal to-copper p-0.5 shadow-md group-hover:scale-105 transition-transform">
+                        <div class="w-full h-full bg-white dark:bg-slate-900 rounded-full flex items-center justify-center">
+                            <i class="fa-solid font-bold text-lg bg-gradient-to-tr from-navy via-teal to-copper bg-clip-text text-transparent fa-compass"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="text-2xl font-black tracking-tight flex items-center gap-1 font-serif">
+                            <span class="text-navy dark:text-white">AFRICA</span>
+                            <span class="text-copper">NEXUS</span>
+                        </div>
+                        <p class="text-[10px] text-teal font-medium tracking-wider uppercase dark:text-teal-light hidden sm:block">Connecting the Continent. Shaping the Narrative.</p>
+                    </div>
+                </a>
+
+                <!-- Navigation Links (Desktop) -->
+                <nav class="hidden lg:flex items-center gap-6 text-sm font-medium">
+                    <button onclick="filterCategory('All')" class="nav-link text-navy dark:text-gray-200 hover:text-copper transition-colors">Home</button>
+                    <button onclick="filterCategory('Politics')" class="nav-link text-gray-600 dark:text-gray-400 hover:text-copper transition-colors">Politics</button>
+                    <button onclick="filterCategory('Tech & Innovation')" class="nav-link text-gray-600 dark:text-gray-400 hover:text-copper transition-colors">Tech & Innovation</button>
+                    <button onclick="filterCategory('Business')" class="nav-link text-gray-600 dark:text-gray-400 hover:text-copper transition-colors">Business</button>
+                    <button onclick="filterCategory('Culture')" class="nav-link text-gray-600 dark:text-gray-400 hover:text-copper transition-colors">Culture</button>
+                    <button onclick="filterCategory('Climate')" class="nav-link text-gray-600 dark:text-gray-400 hover:text-copper transition-colors">Climate</button>
+                    <a href="#podcasts-hub" class="text-teal font-semibold hover:text-copper transition-colors"><i class="fa-solid fa-podcast mr-1"></i> Deep Dive</a>
+                </nav>
+
+                <!-- Header Right Controls -->
+                <div class="flex items-center gap-3">
+                    <!-- Search Input -->
+                    <div class="relative hidden sm:block">
+                        <input type="text" id="search-input" onkeyup="handleSearch()" placeholder="Search news, topics..." class="w-40 md:w-56 pl-9 pr-4 py-1.5 text-xs rounded-full bg-gray-100 dark:bg-slate-800 border border-transparent focus:border-copper focus:bg-white dark:focus:bg-slate-900 focus:outline-none transition-all">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-gray-400 text-xs"></i>
+                    </div>
+
+                    <!-- Theme Toggle -->
+                    <button id="theme-toggle" onclick="toggleDarkMode()" class="p-2 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-slate-800 rounded-full transition-colors" title="Toggle Light/Dark Theme">
+                        <i class="fa-solid fa-moon text-base dark:hidden"></i>
+                        <i class="fa-solid fa-sun text-base hidden dark:block text-amber-400"></i>
+                    </button>
+
+                    <!-- Submit Article CTA -->
+                    <button onclick="openModal('submit-modal')" class="hidden md:flex items-center gap-2 bg-navy text-white hover:bg-teal text-xs font-semibold py-2 px-3.5 rounded-lg shadow-sm transition-all">
+                        <i class="fa-solid fa-pen-nib"></i>
+                        <span>Submit Piece</span>
+                    </button>
+
+                    <!-- Mobile Drawer Toggle -->
+                    <button onclick="toggleMobileMenu()" class="lg:hidden p-2 text-gray-700 dark:text-gray-200">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Drawer Navigation -->
+        <div id="mobile-menu" class="hidden lg:hidden border-b border-gray-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-4 pt-2 pb-6 space-y-3">
+            <div class="relative mb-3">
+                <input type="text" id="mobile-search-input" onkeyup="handleMobileSearch()" placeholder="Search Africa Nexus..." class="w-full pl-9 pr-4 py-2 text-sm rounded-lg bg-gray-100 dark:bg-slate-800 border border-transparent focus:border-copper focus:outline-none">
+                <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-gray-400"></i>
+            </div>
+            <div class="grid grid-cols-2 gap-2 text-sm font-medium">
+                <button onclick="filterCategory('All'); toggleMobileMenu()" class="text-left px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-slate-800">Home</button>
+                <button onclick="filterCategory('Politics'); toggleMobileMenu()" class="text-left px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-slate-800">Politics</button>
+                <button onclick="filterCategory('Tech & Innovation'); toggleMobileMenu()" class="text-left px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-slate-800">Tech & Innovation</button>
+                <button onclick="filterCategory('Business'); toggleMobileMenu()" class="text-left px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-slate-800">Business</button>
+                <button onclick="filterCategory('Culture'); toggleMobileMenu()" class="text-left px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-slate-800">Culture</button>
+                <button onclick="filterCategory('Climate'); toggleMobileMenu()" class="text-left px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-slate-800">Climate</button>
+            </div>
+            <button onclick="openModal('submit-modal'); toggleMobileMenu()" class="w-full mt-2 bg-copper text-white py-2 rounded-lg font-semibold text-xs flex items-center justify-center gap-2">
+                <i class="fa-solid fa-paper-plane"></i> Submit Press Release / Opinion
+            </button>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow w-full">
+        
+        <!-- Hero Section -->
+        <section class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12" id="hero-section">
+            <!-- Main Featured Lead Story (8 cols) -->
+            <div class="lg:col-span-8 group cursor-pointer" onclick="openArticleModal(articles[0].id)">
+                <div class="relative h-[380px] sm:h-[460px] rounded-2xl overflow-hidden shadow-xl">
+                    <img id="hero-img" src="https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&w=1200&q=80" alt="Lead story" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-transparent"></div>
+                    
+                    <div class="absolute top-4 left-4 flex gap-2">
+                        <span class="bg-copper text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow">Lead Story</span>
+                        <span class="bg-navy/80 backdrop-blur-md text-white text-xs px-3 py-1 rounded-full"><i class="fa-solid fa-clock mr-1"></i> 6 min read</span>
+                    </div>
+
+                    <div class="absolute bottom-0 p-6 sm:p-8 w-full">
+                        <div class="flex items-center gap-3 text-teal-light text-xs font-semibold mb-2 uppercase tracking-wider">
+                            <span>Tech & Regional Integration</span>
+                            <span>•</span>
+                            <span class="text-gray-300">East & West Africa</span>
+                        </div>
+                        <h1 id="hero-title" class="text-2xl sm:text-4xl font-black font-serif text-white leading-tight mb-3 group-hover:text-copper-light transition-colors">
+                            Pan-African Tech Alliances Fast-Track Cross-Border Digital Currencies & Connectivity
+                        </h1>
+                        <p id="hero-excerpt" class="text-gray-300 text-sm sm:text-base line-clamp-2 mb-4 font-light max-w-2xl">
+                            Key central banks and fintech hubs unite to construct unified payment networks, paving the way for frictionless trade under AfCFTA.
+                        </p>
+                        <div class="flex items-center justify-between text-xs text-gray-400 border-t border-white/10 pt-4">
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-full bg-teal text-white flex items-center justify-center font-bold text-xs">AM</div>
+                                <div>
+                                    <p class="text-white font-medium">Amina Mohamed</p>
+                                    <p class="text-[11px]">Senior Tech Editor in Nairobi</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <button onclick="event.stopPropagation(); toggleBookmark(0)" class="hover:text-copper transition-colors" title="Bookmark">
+                                    <i class="fa-regular fa-bookmark text-base" id="hero-bookmark-icon"></i>
+                                </button>
+                                <button onclick="event.stopPropagation(); shareArticle(articles[0].title)" class="hover:text-copper transition-colors" title="Share">
+                                    <i class="fa-solid fa-share-nodes text-base"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Top Stories / Trending Sidebar (4 cols) -->
+            <div class="lg:col-span-4 flex flex-col justify-between">
+                <div class="bg-white dark:bg-slate-800/80 rounded-2xl p-5 border border-gray-100 dark:border-slate-800 shadow-sm h-full flex flex-col">
+                    <div class="flex items-center justify-between pb-4 mb-4 border-b border-gray-100 dark:border-slate-700">
+                        <h2 class="font-bold text-lg text-navy dark:text-white flex items-center gap-2">
+                            <i class="fa-solid fa-fire text-copper"></i>
+                            Top Trending
+                        </h2>
+                        <span class="text-xs text-teal font-medium uppercase tracking-wider">Live Updates</span>
+                    </div>
+
+                    <div id="trending-list" class="space-y-4 flex-grow overflow-y-auto max-h-[380px] custom-scrollbar pr-1">
+                        <!-- Dynamic Trending Items Insertion -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Regional News Tracker Banner -->
+        <section class="mb-12 bg-gradient-to-r from-navy via-slate-900 to-teal text-white rounded-2xl p-6 shadow-xl relative overflow-hidden">
+            <div class="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-6">
+                <div>
+                    <span class="text-copper font-bold text-xs uppercase tracking-widest bg-copper/20 px-3 py-1 rounded-full border border-copper/30">Interactive Navigator</span>
+                    <h2 class="text-2xl font-bold font-serif mt-2">Explore News by Region</h2>
+                    <p class="text-gray-300 text-sm max-w-xl mt-1">Filter investigative journalism, economic analysis, and cultural stories across Africa's five major hubs.</p>
+                </div>
+                
+                <!-- Regional Selectors -->
+                <div class="flex flex-wrap gap-2 justify-center" id="region-buttons">
+                    <button onclick="filterRegion('All')" class="region-btn bg-white/10 hover:bg-copper text-white text-xs font-semibold px-4 py-2 rounded-lg backdrop-blur-sm transition-all border border-white/10 active-region" data-region="All">
+                        <i class="fa-solid fa-globe mr-1.5"></i> All Regions
+                    </button>
+                    <button onclick="filterRegion('North')" class="region-btn bg-white/10 hover:bg-copper text-white text-xs font-semibold px-4 py-2 rounded-lg backdrop-blur-sm transition-all border border-white/10" data-region="North">
+                        North
+                    </button>
+                    <button onclick="filterRegion('West')" class="region-btn bg-white/10 hover:bg-copper text-white text-xs font-semibold px-4 py-2 rounded-lg backdrop-blur-sm transition-all border border-white/10" data-region="West">
+                        West
+                    </button>
+                    <button onclick="filterRegion('East')" class="region-btn bg-white/10 hover:bg-copper text-white text-xs font-semibold px-4 py-2 rounded-lg backdrop-blur-sm transition-all border border-white/10" data-region="East">
+                        East
+                    </button>
+                    <button onclick="filterRegion('Central')" class="region-btn bg-white/10 hover:bg-copper text-white text-xs font-semibold px-4 py-2 rounded-lg backdrop-blur-sm transition-all border border-white/10" data-region="Central">
+                        Central
+                    </button>
+                    <button onclick="filterRegion('Southern')" class="region-btn bg-white/10 hover:bg-copper text-white text-xs font-semibold px-4 py-2 rounded-lg backdrop-blur-sm transition-all border border-white/10" data-region="Southern">
+                        Southern
+                    </button>
+                </div>
+            </div>
+            <!-- Subtle Map Icon Overlay Background -->
+            <i class="fa-solid fa-earth-africa absolute -right-6 -bottom-10 text-[180px] text-white/5 pointer-events-none"></i>
+        </section>
+
+        <!-- Category Navigation Tabs & Layout Switcher -->
+        <section class="mb-8 flex flex-col md:flex-row items-center justify-between gap-4 border-b border-gray-200 dark:border-slate-800 pb-4">
+            <!-- Filter Tabs -->
+            <div class="flex items-center gap-2 overflow-x-auto w-full md:w-auto custom-scrollbar pb-2 md:pb-0" id="category-tabs">
+                <button onclick="filterCategory('All')" class="cat-tab font-semibold text-sm px-4 py-2 rounded-full bg-navy text-white shadow-sm dark:bg-copper transition-all" data-cat="All">All Stories</button>
+                <button onclick="filterCategory('Politics')" class="cat-tab font-medium text-sm px-4 py-2 rounded-full text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-slate-800 transition-all" data-cat="Politics">Politics</button>
+                <button onclick="filterCategory('Tech & Innovation')" class="cat-tab font-medium text-sm px-4 py-2 rounded-full text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-slate-800 transition-all" data-cat="Tech & Innovation">Tech & Innovation</button>
+                <button onclick="filterCategory('Business')" class="cat-tab font-medium text-sm px-4 py-2 rounded-full text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-slate-800 transition-all" data-cat="Business">Business</button>
+                <button onclick="filterCategory('Culture')" class="cat-tab font-medium text-sm px-4 py-2 rounded-full text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-slate-800 transition-all" data-cat="Culture">Culture</button>
+                <button onclick="filterCategory('Climate')" class="cat-tab font-medium text-sm px-4 py-2 rounded-full text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-slate-800 transition-all" data-cat="Climate">Climate</button>
+            </div>
+
+            <!-- View Layout Toggle -->
+            <div class="flex items-center gap-2 self-end md:self-auto shrink-0 bg-gray-100 dark:bg-slate-800 p-1 rounded-lg">
+                <button onclick="setViewMode('grid')" id="grid-view-btn" class="p-2 rounded bg-white dark:bg-slate-700 text-navy dark:text-white shadow-sm" title="Grid View">
+                    <i class="fa-solid fa-border-all text-xs"></i>
+                </button>
+                <button onclick="setViewMode('list')" id="list-view-btn" class="p-2 rounded text-gray-500 dark:text-gray-400 hover:text-navy dark:hover:text-white" title="List View">
+                    <i class="fa-solid fa-list text-xs"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- Articles Grid/List Container -->
+        <section class="mb-16">
+            <div id="articles-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Articles Populated via JS -->
+            </div>
+        </section>
+
+        <!-- Deep Dive Media & Podcast Hub -->
+        <section id="podcasts-hub" class="mb-16 bg-slate-900 text-white rounded-3xl p-6 sm:p-10 shadow-2xl relative overflow-hidden">
+            <div class="max-w-3xl mb-8">
+                <span class="text-copper font-bold text-xs uppercase tracking-widest"><i class="fa-solid fa-podcast mr-2"></i>Nexus Deep Dive Audio</span>
+                <h2 class="text-3xl font-serif font-bold mt-2 text-white">Pan-African Audio Series & Insights</h2>
+                <p class="text-gray-400 text-sm mt-2">Listen to candid conversations with political leaders, innovators, artists, and economists defining Africa’s trajectory.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <!-- Active Podcast Audio Controller (7 cols) -->
+                <div class="lg:col-span-7 bg-slate-800/80 rounded-2xl p-6 border border-slate-700/60 backdrop-blur-sm">
+                    <div class="flex flex-col sm:flex-row gap-5 items-center">
+                        <img id="podcast-cover" src="https://images.unsplash.com/photo-1590602847861-f357a9332bbc?auto=format&fit=crop&w=400&q=80" alt="Podcast Cover" class="w-28 h-28 rounded-xl object-cover shadow-lg border border-copper/30">
+                        <div class="w-full">
+                            <span id="podcast-badge" class="bg-teal/30 text-teal-light text-[11px] font-bold px-2.5 py-0.5 rounded border border-teal/40">Episode #42</span>
+                            <h3 id="podcast-title" class="text-lg font-bold text-white mt-1">The Great Green Wall: Climate Resilience in the Sahel</h3>
+                            <p id="podcast-host" class="text-xs text-gray-400 mt-1">Hosted by Dr. Oumar Diallo • 28 mins</p>
+
+                            <!-- Audio Controls -->
+                            <div class="mt-4">
+                                <div class="flex items-center justify-between text-xs text-gray-400 font-mono mb-1">
+                                    <span id="audio-time">02:14</span>
+                                    <span id="audio-duration">28:40</span>
+                                </div>
+                                <div class="w-full bg-slate-700 h-2 rounded-full overflow-hidden cursor-pointer" id="progress-bar-container" onclick="seekAudio(event)">
+                                    <div id="audio-progress" class="bg-gradient-to-r from-copper to-teal h-full w-[12%] transition-all"></div>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center justify-between mt-4">
+                                <div class="flex items-center gap-3">
+                                    <button onclick="toggleAudioPlay()" id="podcast-play-btn" class="w-10 h-10 rounded-full bg-copper text-white flex items-center justify-center hover:bg-copper-hover transition-transform active:scale-95 shadow-md">
+                                        <i class="fa-solid fa-play ml-0.5"></i>
+                                    </button>
+                                    <span class="text-xs font-semibold text-gray-300" id="audio-status-text">Ready to Play</span>
+                                </div>
+                                <div class="flex items-center gap-3 text-gray-400 text-sm">
+                                    <button onclick="speedAudio()" id="speed-btn" class="hover:text-white font-mono text-xs">1.0x</button>
+                                    <button onclick="shareArticle('Nexus Deep Dive Podcast')" class="hover:text-white"><i class="fa-solid fa-share-nodes"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Episode Playlist Listing (5 cols) -->
+                <div class="lg:col-span-5 space-y-3 max-h-[320px] overflow-y-auto custom-scrollbar pr-2">
+                    <div class="text-xs font-bold uppercase tracking-wider text-gray-400 mb-2">More Episodes</div>
+                    
+                    <div onclick="playEpisode(0)" class="p-3 rounded-xl bg-slate-800/40 hover:bg-slate-800 border border-slate-700/40 cursor-pointer transition-all flex items-center gap-3 group">
+                        <div class="w-8 h-8 rounded-full bg-copper/20 text-copper flex items-center justify-center font-bold text-xs shrink-0 group-hover:bg-copper group-hover:text-white transition-colors">1</div>
+                        <div class="flex-grow min-w-0">
+                            <h4 class="text-xs font-bold text-white truncate">The Great Green Wall: Climate Resilience in the Sahel</h4>
+                            <p class="text-[11px] text-gray-400">28 mins • Climate & Futures</p>
+                        </div>
+                    </div>
+
+                    <div onclick="playEpisode(1)" class="p-3 rounded-xl bg-slate-800/40 hover:bg-slate-800 border border-slate-700/40 cursor-pointer transition-all flex items-center gap-3 group">
+                        <div class="w-8 h-8 rounded-full bg-teal/20 text-teal-light flex items-center justify-center font-bold text-xs shrink-0 group-hover:bg-teal group-hover:text-white transition-colors">2</div>
+                        <div class="flex-grow min-w-0">
+                            <h4 class="text-xs font-bold text-white truncate">Afrobeats Economics: How African Music Took the World</h4>
+                            <p class="text-[11px] text-gray-400">35 mins • Creative Industries</p>
+                        </div>
+                    </div>
+
+                    <div onclick="playEpisode(2)" class="p-3 rounded-xl bg-slate-800/40 hover:bg-slate-800 border border-slate-700/40 cursor-pointer transition-all flex items-center gap-3 group">
+                        <div class="w-8 h-8 rounded-full bg-teal/20 text-teal-light flex items-center justify-center font-bold text-xs shrink-0 group-hover:bg-teal group-hover:text-white transition-colors">3</div>
+                        <div class="flex-grow min-w-0">
+                            <h4 class="text-xs font-bold text-white truncate">Sovereign Wealth & Critical Minerals in Central Africa</h4>
+                            <p class="text-[11px] text-gray-400">42 mins • Economics & Mining</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter Signup Banner -->
+        <section class="bg-gradient-to-r from-copper/10 via-teal/10 to-navy/10 rounded-2xl p-8 border border-copper/20 dark:border-slate-800 text-center relative overflow-hidden mb-12">
+            <div class="max-w-xl mx-auto relative z-10">
+                <div class="w-12 h-12 rounded-full bg-copper text-white flex items-center justify-center mx-auto mb-4 shadow-lg text-lg">
+                    <i class="fa-regular fa-envelope"></i>
+                </div>
+                <h3 class="text-2xl font-bold font-serif text-navy dark:text-white">The Nexus Daily Briefing</h3>
+                <p class="text-gray-600 dark:text-gray-300 text-sm mt-2">Get concise pan-African news updates, economic intelligence, and cultural highlights delivered directly to your inbox every morning.</p>
+                
+                <form onsubmit="handleNewsletter(event)" class="mt-6 flex flex-col sm:flex-row gap-2 max-w-md mx-auto">
+                    <input type="email" required id="newsletter-email" placeholder="Enter your email address..." class="flex-grow px-4 py-2.5 rounded-lg text-sm bg-white dark:bg-slate-800 border border-gray-300 dark:border-slate-700 focus:outline-none focus:border-copper">
+                    <button type="submit" class="bg-copper hover:bg-copper-hover text-white font-semibold text-sm px-6 py-2.5 rounded-lg shadow transition-colors shrink-0">
+                        Subscribe Free
+                    </button>
+                </form>
+                <p class="text-[11px] text-gray-500 dark:text-gray-400 mt-3">Join 85,000+ diplomats, founders, and journalists across Africa and the diaspora.</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-navy-dark text-gray-400 text-xs border-t border-navy-light/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-8 h-8 rounded-full bg-copper flex items-center justify-center text-white font-bold">AN</div>
+                        <span class="text-lg font-serif font-bold text-white">AFRICA NEXUS</span>
+                    </div>
+                    <p class="text-gray-400 leading-relaxed mb-4">Connecting the continent through independent, authoritative journalism and impactful multimedia stories.</p>
+                    <div class="flex items-center gap-4 text-base">
+                        <a href="#" class="text-gray-400 hover:text-copper"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-copper"><i class="fa-brands fa-linkedin"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-copper"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-copper"><i class="fa-brands fa-spotify"></i></a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-bold mb-3 uppercase tracking-wider text-[11px]">Editorial Desks</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" onclick="filterCategory('Politics')" class="hover:text-white">Pan-African Politics</a></li>
+                        <li><a href="#" onclick="filterCategory('Tech & Innovation')" class="hover:text-white">Tech & Startups Hub</a></li>
+                        <li><a href="#" onclick="filterCategory('Business')" class="hover:text-white">Markets & AfCFTA Trade</a></li>
+                        <li><a href="#" onclick="filterCategory('Culture')" class="hover:text-white">Arts, Music & Film</a></li>
+                        <li><a href="#" onclick="filterCategory('Climate')" class="hover:text-white">Climate & Sustainability</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-bold mb-3 uppercase tracking-wider text-[11px]">Regional Bureaus</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" onclick="filterRegion('West')" class="hover:text-white">West Africa (Lagos/Accra)</a></li>
+                        <li><a href="#" onclick="filterRegion('East')" class="hover:text-white">East Africa (Nairobi/Addis)</a></li>
+                        <li><a href="#" onclick="filterRegion('Southern')" class="hover:text-white">Southern Africa (Joburg)</a></li>
+                        <li><a href="#" onclick="filterRegion('North')" class="hover:text-white">North Africa (Cairo)</a></li>
+                        <li><a href="#" onclick="filterRegion('Central')" class="hover:text-white">Central Africa (Kinshasa)</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-bold mb-3 uppercase tracking-wider text-[11px]">Company & Ethics</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-white">About Africa Nexus</a></li>
+                        <li><a href="#" class="hover:text-white">Editorial Guidelines</a></li>
+                        <li><a href="#" onclick="openModal('submit-modal')" class="hover:text-white">Press Release Submissions</a></li>
+                        <li><a href="#" class="hover:text-white">Careers & Fellowships</a></li>
+                        <li><a href="#" class="hover:text-white">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-slate-800 pt-6 flex flex-col sm:flex-row items-center justify-between text-[11px] text-gray-500">
+                <p>&copy; 2026 Africa Nexus Media Group. All rights reserved.</p>
+                <p class="mt-2 sm:mt-0">Designed for fast, accessible Pan-African Journalism.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Full Article Reader Modal -->
+    <div id="article-modal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md hidden flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-white dark:bg-slate-900 rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto custom-scrollbar border border-gray-200 dark:border-slate-800 shadow-2xl relative">
+            
+            <!-- Sticky Modal Control Bar -->
+            <div class="sticky top-0 bg-white/90 dark:bg-slate-900/90 backdrop-blur border-b border-gray-200 dark:border-slate-800 px-6 py-3 flex items-center justify-between z-10">
+                <div class="flex items-center gap-3">
+                    <button onclick="toggleTextToSpeech()" id="tts-btn" class="bg-copper/10 hover:bg-copper text-copper hover:text-white text-xs font-semibold px-3 py-1.5 rounded-full flex items-center gap-2 transition-colors">
+                        <i class="fa-solid fa-volume-high"></i>
+                        <span id="tts-label">Listen to Article</span>
+                    </button>
+                </div>
+                <button onclick="closeModal('article-modal')" class="text-gray-400 hover:text-gray-600 dark:hover:text-white p-1 rounded-full">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+
+            <!-- Modal Article Content Body -->
+            <div class="p-6 sm:p-10" id="modal-content-container">
+                <!-- Dynamically populated via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Submit Opinion / Press Release Modal -->
+    <div id="submit-modal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+        <div class="bg-white dark:bg-slate-900 rounded-2xl max-w-lg w-full p-6 sm:p-8 border border-gray-200 dark:border-slate-800 shadow-2xl relative">
+            <button onclick="closeModal('submit-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 dark:hover:text-white">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+            <h3 class="text-xl font-bold font-serif text-navy dark:text-white mb-2">Submit News or Opinion Piece</h3>
+            <p class="text-xs text-gray-500 dark:text-gray-400 mb-6">Share pitch drafts, research reports, or op-eds directly with our editorial desk.</p>
+
+            <form onsubmit="handleSubmitPiece(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Full Name / Organization</label>
+                    <input type="text" required class="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-slate-700 bg-gray-50 dark:bg-slate-800 focus:outline-none focus:border-copper">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Email Address</label>
+                    <input type="email" required class="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-slate-700 bg-gray-50 dark:bg-slate-800 focus:outline-none focus:border-copper">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Category Desk</label>
+                    <select class="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-slate-700 bg-gray-50 dark:bg-slate-800 focus:outline-none focus:border-copper">
+                        <option>Politics & Governance</option>
+                        <option>Tech & Innovation</option>
+                        <option>Business & Markets</option>
+                        <option>Culture & Society</option>
+                        <option>Climate Action</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Headline or Summary</label>
+                    <textarea rows="4" required placeholder="Provide your article draft or pitch details here..." class="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-slate-700 bg-gray-50 dark:bg-slate-800 focus:outline-none focus:border-copper"></textarea>
+                </div>
+                <button type="submit" class="w-full bg-copper hover:bg-copper-hover text-white font-semibold py-2.5 rounded-lg text-sm shadow transition-colors">
+                    Send to Desk
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Notification Toast Box -->
+    <div id="toast-notification" class="fixed bottom-5 right-5 z-50 bg-navy text-white text-xs px-4 py-3 rounded-xl shadow-xl flex items-center gap-3 border border-copper/30 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+        <i id="toast-icon" class="fa-solid fa-circle-check text-copper text-base"></i>
+        <span id="toast-message">Notification message here</span>
+    </div>
+
+    <script>
+        // Article Database
+        const articles = [
+            {
+                id: 1,
+                title: "Pan-African Tech Alliances Fast-Track Cross-Border Digital Currencies & Connectivity",
+                category: "Tech & Innovation",
+                region: "East",
+                author: "Amina Mohamed",
+                date: "Oct 5, 2026",
+                readTime: "6 min read",
+                views: "18.4K",
+                image: "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&w=800&q=80",
+                excerpt: "Key central banks and fintech hubs unite to construct unified payment networks, paving the way for frictionless trade under AfCFTA.",
+                content: `
+                    <p class="font-serif text-lg leading-relaxed text-gray-800 dark:text-gray-200 mb-6">
+                        In an unprecedented leap forward for regional integration, financial authorities across Nairobi, Lagos, and Accra have formalized a joint protocol establishing real-time digital settlement networks. The agreement promises to lower cross-border transaction fees by over 60%, drastically simplifying commerce for small enterprises across the continent.
+                    </p>
+                    <h3 class="text-xl font-bold font-serif text-navy dark:text-white mt-6 mb-3">Unlocking the Power of AfCFTA</h3>
+                    <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+                        For decades, intra-African trade was hampered by costly multi-currency conversions routed through intermediary banking hubs in Europe or North America. By deploying interoperable digital payment bridges, African entrepreneurs can now settle trades instantaneously in local currencies.
+                    </p>
+                    <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+                        "We are no longer just talking about economic integration on paper," stated Dr. Kojo Vance during the summit. "We are engineering the digital rails that allow a merchant in Dakar to receive payments seamlessly from a buyer in Kigali within seconds."
+                    </p>
+                `
+            },
+            {
+                id: 2,
+                title: "North Africa's Solar Highway: How Giant Farms Are Powering Trans-Mediterranean Grids",
+                category: "Climate",
+                region: "North",
+                author: "Youssef El-Mansouri",
+                date: "Oct 4, 2026",
+                readTime: "5 min read",
+                views: "14.2K",
+                image: "https://images.unsplash.com/photo-1509391365360-2e959784a276?auto=format&fit=crop&w=800&q=80",
+                excerpt: "Solar infrastructure expansions in Egypt and Morocco unlock clean export potential while supplying domestic industrial growth.",
+                content: `
+                    <p class="font-serif text-lg leading-relaxed text-gray-800 dark:text-gray-200 mb-6">
+                        stretching across vast desert landscapes, North Africa's mega solar installations are redefining global energy geography. With new submarine high-voltage cables coming online, renewable energy produced in the Sahara is directly powering green industrial zones and European cities.
+                    </p>
+                    <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+                        Local manufacturing of PV modules and green hydrogen electrolyzers is rapidly growing, generating tens of thousands of skilled engineering jobs across the region.
+                    </p>
+                `
+            },
+            {
+                id: 3,
+                title: "Democratic Reforms and Youth Voter Engagement Surge in West African Elections",
+                category: "Politics",
+                region: "West",
+                author: "Kwame Lawson",
+                date: "Oct 3, 2026",
+                readTime: "7 min read",
+                views: "22.1K",
+                image: "https://images.unsplash.com/photo-1540910419892-4a36d2c3266c?auto=format&fit=crop&w=800&q=80",
+                excerpt: "Civic tech tools and grassroots mobilizations drive record youth registration numbers in upcoming parliamentary votes.",
+                content: `
+                    <p class="font-serif text-lg leading-relaxed text-gray-800 dark:text-gray-200 mb-6">
+                        A new generation of voters across West Africa is leveraging open-source tracking tools to demand transparency, accountability, and candidate performance benchmarks.
+                    </p>
+                `
+            },
+            {
+                id: 4,
+                title: "Afrobeats and Cinema Driving a $12B Creative Economy Boom",
+                category: "Culture",
+                region: "West",
+                author: "Chioma Okereke",
+                date: "Oct 2, 2026",
+                readTime: "4 min read",
+                views: "19.8K",
+                image: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=800&q=80",
+                excerpt: "Global streaming distribution deals and creative incubators attract record venture capital into African entertainment.",
+                content: `
+                    <p class="font-serif text-lg leading-relaxed text-gray-800 dark:text-gray-200 mb-6">
+                        From film festivals in Lagos to recording studios in Johannesburg, African storytellers are building self-sustaining global brands that command premium valuations.
+                    </p>
+                `
+            },
+            {
+                id: 5,
+                title: "Southern Africa Lithium Refinery Hub Boosts Local Value Addition",
+                category: "Business",
+                region: "Southern",
+                author: "Thabo Mbeki Jr.",
+                date: "Oct 1, 2026",
+                readTime: "6 min read",
+                views: "11.5K",
+                image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=800&q=80",
+                excerpt: "New processing facilities ensure raw critical minerals are converted into battery-grade materials locally before export.",
+                content: `
+                    <p class="font-serif text-lg leading-relaxed text-gray-800 dark:text-gray-200 mb-6">
+                        By shifting from raw ore exports to refined lithium production, regional economies are securing significantly higher profit margins and industrial capabilities.
+                    </p>
+                `
+            },
+            {
+                id: 6,
+                title: "Central Africa Basin Conservation: Balancing Forest Protection and Economic Growth",
+                category: "Climate",
+                region: "Central",
+                author: "Marie-Claire Ndombe",
+                date: "Sep 29, 2026",
+                readTime: "8 min read",
+                views: "9.7K",
+                image: "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&w=800&q=80",
+                excerpt: "High-integrity carbon credit frameworks reward rainforest stewardship while funding sustainable community development.",
+                content: `
+                    <p class="font-serif text-lg leading-relaxed text-gray-800 dark:text-gray-200 mb-6">
+                        The Congo Basin rainforest remains the earth's vital green heart. Innovative sovereign climate bonds are now directly compensating local stewards.
+                    </p>
+                `
+            }
+        ];
+
+        // Podcast Episodes Database
+        const podcasts = [
+            {
+                title: "The Great Green Wall: Climate Resilience in the Sahel",
+                badge: "Episode #42",
+                host: "Hosted by Dr. Oumar Diallo • 28 mins",
+                cover: "https://images.unsplash.com/photo-1590602847861-f357a9332bbc?auto=format&fit=crop&w=400&q=80",
+                duration: "28:40"
+            },
+            {
+                title: "Afrobeats Economics: How African Music Took the World",
+                badge: "Episode #41",
+                host: "Hosted by Chioma Okereke • 35 mins",
+                cover: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=400&q=80",
+                duration: "35:12"
+            },
+            {
+                title: "Sovereign Wealth & Critical Minerals in Central Africa",
+                badge: "Episode #40",
+                host: "Hosted by Thabo Mbeki Jr. • 42 mins",
+                cover: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=400&q=80",
+                duration: "42:05"
+            }
+        ];
+
+        // State Variables
+        let activeCategory = 'All';
+        let activeRegion = 'All';
+        let viewMode = 'grid'; // 'grid' or 'list'
+        let bookmarks = new Set();
+        let isAudioPlaying = false;
+        let audioProgress = 12;
+        let audioInterval = null;
+        let isTtsActive = false;
+
+        // On Document Load Initialization
+        window.onload = function() {
+            renderTrending();
+            renderArticles();
+            updateTime();
+            setInterval(updateTime, 60000);
+        };
+
+        // Real-Time Clock
+        function updateTime() {
+            const now = new Date();
+            const timeString = now.toUTCString().slice(17, 22) + " GMT";
+            const timeElem = document.getElementById('current-time');
+            if (timeElem) timeElem.innerText = timeString;
+        }
+
+        // Render Trending Sidebar
+        function renderTrending() {
+            const container = document.getElementById('trending-list');
+            if (!container) return;
+
+            container.innerHTML = articles.map((art, index) => `
+                <div onclick="openArticleModal(${art.id})" class="flex items-start gap-3 p-2 rounded-xl hover:bg-gray-50 dark:hover:bg-slate-700/50 cursor-pointer transition-colors group">
+                    <span class="text-xl font-bold font-serif text-copper/60 group-hover:text-copper transition-colors w-5 shrink-0">0${index + 1}</span>
+                    <div class="flex-grow min-w-0">
+                        <span class="text-[10px] uppercase tracking-wider font-bold text-teal dark:text-teal-light">${art.category}</span>
+                        <h3 class="text-xs font-bold text-navy dark:text-white line-clamp-2 leading-snug group-hover:text-copper transition-colors mt-0.5">${art.title}</h3>
+                        <p class="text-[11px] text-gray-400 mt-1 flex items-center gap-2">
+                            <span><i class="fa-regular fa-eye mr-1"></i>${art.views}</span>
+                            <span>•</span>
+                            <span>${art.readTime}</span>
+                        </p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Render Articles Main Grid/List
+        function renderArticles() {
+            const container = document.getElementById('articles-container');
+            if (!container) return;
+
+            const filtered = articles.filter(art => {
+                const matchCat = (activeCategory === 'All' || art.category === activeCategory);
+                const matchReg = (activeRegion === 'All' || art.region === activeRegion);
+                return matchCat && matchReg;
+            });
+
+            if (filtered.length === 0) {
+                container.className = "col-span-full text-center py-12";
+                container.innerHTML = `
+                    <div class="w-16 h-16 bg-gray-200 dark:bg-slate-800 rounded-full flex items-center justify-center mx-auto text-gray-400 text-2xl mb-3">
+                        <i class="fa-solid fa-newspaper"></i>
+                    </div>
+                    <p class="text-gray-500 font-medium">No stories found matching your selected criteria.</p>
+                    <button onclick="filterCategory('All'); filterRegion('All');" class="mt-3 text-xs text-copper font-bold hover:underline">Reset Filters</button>
+                `;
+                return;
+            }
+
+            if (viewMode === 'grid') {
+                container.className = "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8";
+                container.innerHTML = filtered.map(art => `
+                    <article onclick="openArticleModal(${art.id})" class="bg-white dark:bg-slate-800 rounded-2xl overflow-hidden border border-gray-100 dark:border-slate-800 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group cursor-pointer">
+                        <div class="relative h-48 overflow-hidden">
+                            <img src="${art.image}" alt="${art.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <span class="absolute top-3 left-3 bg-navy/90 backdrop-blur-md text-white text-[10px] font-bold px-2.5 py-1 rounded-md uppercase tracking-wider">${art.category}</span>
+                            <button onclick="event.stopPropagation(); toggleBookmark(${art.id})" class="absolute top-3 right-3 w-8 h-8 rounded-full bg-slate-900/60 backdrop-blur text-white flex items-center justify-center hover:bg-copper transition-colors">
+                                <i class="${bookmarks.has(art.id) ? 'fa-solid text-copper' : 'fa-regular'} fa-bookmark text-xs"></i>
+                            </button>
+                        </div>
+                        <div class="p-5 flex flex-col flex-grow">
+                            <div class="flex items-center gap-2 text-xs text-gray-400 mb-2">
+                                <span>${art.date}</span>
+                                <span>•</span>
+                                <span>${art.readTime}</span>
+                            </div>
+                            <h3 class="font-serif font-bold text-base text-navy dark:text-white line-clamp-2 mb-2 group-hover:text-copper transition-colors">${art.title}</h3>
+                            <p class="text-xs text-gray-600 dark:text-gray-300 line-clamp-3 mb-4 flex-grow leading-relaxed">${art.excerpt}</p>
+                            <div class="flex items-center justify-between border-t border-gray-100 dark:border-slate-700/60 pt-3 text-xs text-gray-500">
+                                <span class="font-medium text-teal dark:text-teal-light">${art.author}</span>
+                                <span class="text-copper font-semibold group-hover:translate-x-1 transition-transform inline-flex items-center gap-1">Read <i class="fa-solid fa-arrow-right text-[10px]"></i></span>
+                            </div>
+                        </div>
+                    </article>
+                `).join('');
+            } else {
+                // List View Mode
+                container.className = "flex flex-col gap-4";
+                container.innerHTML = filtered.map(art => `
+                    <article onclick="openArticleModal(${art.id})" class="bg-white dark:bg-slate-800 rounded-xl p-4 border border-gray-100 dark:border-slate-800 shadow-sm hover:shadow-md transition-all flex flex-col sm:flex-row gap-5 items-center group cursor-pointer">
+                        <img src="${art.image}" alt="${art.title}" class="w-full sm:w-48 h-32 rounded-lg object-cover shrink-0">
+                        <div class="flex-grow">
+                            <div class="flex items-center gap-2 text-xs text-teal font-bold uppercase tracking-wider mb-1">
+                                <span>${art.category}</span>
+                                <span class="text-gray-300">•</span>
+                                <span class="text-gray-400 font-normal">${art.date}</span>
+                            </div>
+                            <h3 class="font-serif font-bold text-lg text-navy dark:text-white group-hover:text-copper transition-colors mb-2">${art.title}</h3>
+                            <p class="text-xs text-gray-600 dark:text-gray-300 line-clamp-2 leading-relaxed mb-3">${art.excerpt}</p>
+                            <div class="flex items-center gap-4 text-xs text-gray-500">
+                                <span>By <strong>${art.author}</strong></span>
+                                <span>${art.readTime}</span>
+                            </div>
+                        </div>
+                    </article>
+                `).join('');
+            }
+        }
+
+        // Category Filter Function
+        function filterCategory(category) {
+            activeCategory = category;
+            
+            // Update active styling on tabs
+            document.querySelectorAll('.cat-tab').forEach(tab => {
+                if (tab.getAttribute('data-cat') === category) {
+                    tab.className = "cat-tab font-semibold text-sm px-4 py-2 rounded-full bg-navy text-white shadow-sm dark:bg-copper transition-all";
+                } else {
+                    tab.className = "cat-tab font-medium text-sm px-4 py-2 rounded-full text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-slate-800 transition-all";
+                }
+            });
+
+            renderArticles();
+        }
+
+        // Regional News Map Filter
+        function filterRegion(region) {
+            activeRegion = region;
+            
+            document.querySelectorAll('.region-btn').forEach(btn => {
+                if (btn.getAttribute('data-region') === region) {
+                    btn.classList.add('bg-copper');
+                    btn.classList.remove('bg-white/10');
+                } else {
+                    btn.classList.remove('bg-copper');
+                    btn.classList.add('bg-white/10');
+                }
+            });
+
+            renderArticles();
+            showToast(`Filtering regional desk: ${region} Africa`);
+        }
+
+        // View Mode Toggle (Grid/List)
+        function setViewMode(mode) {
+            viewMode = mode;
+            const gridBtn = document.getElementById('grid-view-btn');
+            const listBtn = document.getElementById('list-view-btn');
+
+            if (mode === 'grid') {
+                gridBtn.className = "p-2 rounded bg-white dark:bg-slate-700 text-navy dark:text-white shadow-sm";
+                listBtn.className = "p-2 rounded text-gray-500 dark:text-gray-400 hover:text-navy dark:hover:text-white";
+            } else {
+                listBtn.className = "p-2 rounded bg-white dark:bg-slate-700 text-navy dark:text-white shadow-sm";
+                gridBtn.className = "p-2 rounded text-gray-500 dark:text-gray-400 hover:text-navy dark:hover:text-white";
+            }
+
+            renderArticles();
+        }
+
+        // Live Search Handler
+        function handleSearch() {
+            const query = document.getElementById('search-input').value.toLowerCase();
+            filterArticlesByQuery(query);
+        }
+
+        function handleMobileSearch() {
+            const query = document.getElementById('mobile-search-input').value.toLowerCase();
+            filterArticlesByQuery(query);
+        }
+
+        function filterArticlesByQuery(query) {
+            const container = document.getElementById('articles-container');
+            const filtered = articles.filter(art => 
+                art.title.toLowerCase().includes(query) || 
+                art.excerpt.toLowerCase().includes(query) ||
+                art.category.toLowerCase().includes(query)
+            );
+
+            if (filtered.length === 0) {
+                container.innerHTML = `<p class="col-span-full text-center text-gray-500 py-8">No results found for "${query}"</p>`;
+            } else {
+                // Temporarily override rendering with search matches
+                container.innerHTML = filtered.map(art => `
+                    <article onclick="openArticleModal(${art.id})" class="bg-white dark:bg-slate-800 rounded-2xl overflow-hidden border border-gray-100 dark:border-slate-800 shadow-sm p-5 cursor-pointer">
+                        <span class="text-[10px] font-bold text-copper uppercase">${art.category}</span>
+                        <h3 class="font-serif font-bold text-base mt-1 text-navy dark:text-white">${art.title}</h3>
+                        <p class="text-xs text-gray-500 mt-2 line-clamp-2">${art.excerpt}</p>
+                    </article>
+                `).join('');
+            }
+        }
+
+        // Article Modal Popup
+        function openArticleModal(articleId) {
+            const art = articles.find(a => a.id === articleId) || articles[0];
+            const container = document.getElementById('modal-content-container');
+
+            container.innerHTML = `
+                <div class="mb-4 flex items-center justify-between text-xs text-gray-400">
+                    <span class="bg-teal/10 text-teal dark:text-teal-light font-bold px-3 py-1 rounded-full uppercase">${art.category}</span>
+                    <span>Published ${art.date}</span>
+                </div>
+
+                <h1 class="text-2xl sm:text-3xl font-bold font-serif text-navy dark:text-white mb-4 leading-tight">${art.title}</h1>
+
+                <div class="flex items-center justify-between pb-6 mb-6 border-b border-gray-200 dark:border-slate-800 text-xs">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-copper text-white font-bold flex items-center justify-center text-sm">
+                            ${art.author.charAt(0)}
+                        </div>
+                        <div>
+                            <p class="font-bold text-navy dark:text-white text-sm">${art.author}</p>
+                            <p class="text-gray-400">Bureau Staff • ${art.readTime}</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <button onclick="shareArticle('${art.title}')" class="p-2 rounded-full bg-gray-100 dark:bg-slate-800 hover:text-copper"><i class="fa-solid fa-share-nodes"></i></button>
+                    </div>
+                </div>
+
+                <img src="${art.image}" alt="${art.title}" class="w-full h-64 sm:h-80 object-cover rounded-xl mb-6 shadow-md">
+
+                <div class="prose dark:prose-invert max-w-none">
+                    ${art.content}
+                </div>
+            `;
+
+            openModal('article-modal');
+        }
+
+        // Modal Controls
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) modal.classList.remove('hidden');
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) modal.classList.add('hidden');
+            if (isTtsActive) toggleTextToSpeech(); // Turn off TTS if active
+        }
+
+        // Theme Switcher Logic
+        function toggleDarkMode() {
+            const html = document.documentElement;
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Bookmark Toggle
+        function toggleBookmark(id) {
+            if (bookmarks.has(id)) {
+                bookmarks.delete(id);
+                showToast("Removed article from your saved bookmarks.");
+            } else {
+                bookmarks.add(id);
+                showToast("Article saved to your reading list!");
+            }
+            renderArticles();
+        }
+
+        // Share Link Simulation
+        function shareArticle(title) {
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(window.location.href);
+            }
+            showToast(`Article link copied to clipboard!`);
+        }
+
+        // Newsletter Handler
+        function handleNewsletter(e) {
+            e.preventDefault();
+            const email = document.getElementById('newsletter-email').value;
+            showToast(`Subscribed successfully! Welcome aboard, ${email}`);
+            e.target.reset();
+        }
+
+        // Submission Form Handler
+        function handleSubmitPiece(e) {
+            e.preventDefault();
+            closeModal('submit-modal');
+            showToast("Draft submitted! Our editorial desk will review within 24 hours.");
+            e.target.reset();
+        }
+
+        // Toast Feedback Popup
+        function showToast(message) {
+            const toast = document.getElementById('toast-notification');
+            const msgSpan = document.getElementById('toast-message');
+            if (toast && msgSpan) {
+                msgSpan.innerText = message;
+                toast.classList.remove('translate-y-20', 'opacity-0', 'pointer-events-none');
+                setTimeout(() => {
+                    toast.classList.add('translate-y-20', 'opacity-0', 'pointer-events-none');
+                }, 3500);
+            }
+        }
+
+        // Audio Podcast Player Simulated Controls
+        function toggleAudioPlay() {
+            const playBtn = document.getElementById('podcast-play-btn');
+            const statusText = document.getElementById('audio-status-text');
+            const progressBar = document.getElementById('audio-progress');
+
+            if (!isAudioPlaying) {
+                isAudioPlaying = true;
+                playBtn.innerHTML = '<i class="fa-solid fa-pause"></i>';
+                statusText.innerText = 'Playing Episode...';
+                
+                audioInterval = setInterval(() => {
+                    if (audioProgress < 100) {
+                        audioProgress += 0.5;
+                        progressBar.style.width = audioProgress + '%';
+                    } else {
+                        audioProgress = 0;
+                        toggleAudioPlay();
+                    }
+                }, 1000);
+            } else {
+                isAudioPlaying = false;
+                playBtn.innerHTML = '<i class="fa-solid fa-play ml-0.5"></i>';
+                statusText.innerText = 'Paused';
+                clearInterval(audioInterval);
+            }
+        }
+
+        function playEpisode(index) {
+            const ep = podcasts[index];
+            document.getElementById('podcast-cover').src = ep.cover;
+            document.getElementById('podcast-badge').innerText = ep.badge;
+            document.getElementById('podcast-title').innerText = ep.title;
+            document.getElementById('podcast-host').innerText = ep.host;
+            document.getElementById('audio-duration').innerText = ep.duration;
+            audioProgress = 0;
+            document.getElementById('audio-progress').style.width = '0%';
+            
+            if (!isAudioPlaying) toggleAudioPlay();
+            showToast(`Loaded: ${ep.title}`);
+        }
+
+        function seekAudio(e) {
+            const container = document.getElementById('progress-bar-container');
+            const rect = container.getBoundingClientRect();
+            const clickX = e.clientX - rect.left;
+            const width = rect.width;
+            audioProgress = (clickX / width) * 100;
+            document.getElementById('audio-progress').style.width = audioProgress + '%';
+        }
+
+        function speedAudio() {
+            const btn = document.getElementById('speed-btn');
+            if (btn.innerText === '1.0x') btn.innerText = '1.5x';
+            else if (btn.innerText === '1.5x') btn.innerText = '2.0x';
+            else btn.innerText = '1.0x';
+        }
+
+        // Simulated Text To Speech Reader for Article
+        function toggleTextToSpeech() {
+            const btn = document.getElementById('tts-btn');
+            const label = document.getElementById('tts-label');
+
+            if (!isTtsActive) {
+                isTtsActive = true;
+                btn.classList.add('bg-copper', 'text-white');
+                label.innerText = 'Audio Reader Active...';
+                showToast("Simulated Text-To-Speech audio reader started.");
+            } else {
+                isTtsActive = false;
+                btn.classList.remove('bg-copper', 'text-white');
+                label.innerText = 'Listen to Article';
+            }
+        }
+
+        // Mobile Menu Drawer Toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            if (menu) menu.classList.toggle('hidden');
+        }
+    </script>
+</body>
+</html>
